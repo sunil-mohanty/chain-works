@@ -1,0 +1,4 @@
+const DIFFICULTY = 2;
+const MIN_RATE = 3000;
+const INITIAL_BALANCE = 500;
+module.exports = {DIFFICULTY, MIN_RATE, INITIAL_BALANCE};
