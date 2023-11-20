@@ -27,10 +27,12 @@ app.post('/mine',(req, res)=>{
 */
 
 const loginController = require('./login-controller');
+const walletController = require('./wallet-controller');
 const blockController = require('./block-controller')(blockchain,p2pServer);
 
 // Use the controllers
 app.use('/api/login', loginController);
+app.use('/api/wallets', walletController);
 app.use('/api/blocks', blockController);
 
 app.listen(HTTP_PORT,()=>console.log(`Listening at port ${HTTP_PORT}`));
