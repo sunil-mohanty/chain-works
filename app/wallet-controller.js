@@ -1,10 +1,10 @@
-const Wallet = require('../wallet');
+//const Wallet = require('../wallet');
 const express = require('express');
 const router = express.Router();
 
 router.use(express.json());
 
-
+/*
 const wallet = [{
     walletId: 'X9081765321879ZDSFT101KHJ57DQR323',
     balance : 373.05
@@ -21,6 +21,21 @@ router.post('/', (req, res)=>{
     console.log('request came from user :' , req.body);
     console.log('request came from user :' , userName);
     return res.json(wallet);
-});
+    
+    res.json([{ walletId: wallet.publicKey , balance : 373.05}]);
 
-module.exports = router;
+});*/
+
+
+module.exports = function (wallet) {
+    const express = require('express');
+    const router = express.Router();
+  
+    router.post('/', (req, res)=>{
+        res.json([{ walletId: wallet.publicKey , balance : 373.05}]);
+    
+    });
+  
+    return router;
+  };
+  
