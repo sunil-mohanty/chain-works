@@ -27,12 +27,15 @@ router.post('/', (req, res)=>{
 });*/
 
 
-module.exports = function (wallet) {
+module.exports = function (wallet, blockchain) {
     const express = require('express');
     const router = express.Router();
   
     router.post('/', (req, res)=>{
-        res.json([{ walletId: wallet.publicKey , balance : 373.05}]);
+        console.log(`in the wallet-controller blockchain==========> ${blockchain}`);
+        console.log(`in the wallet-controller wallet==========> ${wallet}`);
+        const balance = wallet.calculateBalance(blockchain.chain, wallet.publicKey);
+        res.json({ walletId: wallet.publicKey , balance : balance});
     
     });
   

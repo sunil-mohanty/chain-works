@@ -22,12 +22,14 @@ class Blockchain {
         for (let i=1; i < chain.length; i++) {
             const block = chain[i];
             const lastBlock = chain[i-1];
-           
+            console.log(`block.lastHash=${block.lastHash} lastBlock.hash=${lastBlock.hash}`);
             if(block.lastHash !== lastBlock.hash) {
                 console.log('lastHash validation failed');
                 return false;
             }
-
+            console.log(`block ${block}`);
+            
+            console.log(`Block.blockHash(block)=${Block.blockHash(block)} block.hash=${block.hash}`);
             if (Block.blockHash(block) !== block.hash) {
                 console.log('BlockHash validation failed');
                 return false;

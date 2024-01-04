@@ -23,12 +23,13 @@ class Block {
            hash         : ${this.hash.substring(0, 10)}
            data         : ${this.data}
            noance       : ${this.noance} 
-           dificulty    : ${this.difficulty}
+           difficulty    : ${this.difficulty}
         `;
           
     }
 
    static genesis () {
+        console.log(`the genesis difficulty = ${DIFFICULTY}`);
         return new this('Universe start time', '------', '0X99RTX', "", 0, DIFFICULTY);
    }
 
@@ -37,7 +38,7 @@ class Block {
         let hash, timestamp;
         let noance = 0;   
         let {difficulty} = lastBlock;
-
+        console.log(`the mineBlock difficulty = ${difficulty}`);
         do {
             noance ++;
             timestamp = Date();
@@ -54,19 +55,21 @@ class Block {
    static calculateDifficulty(lastBlock, timestamp){
 
          let {difficulty} = lastBlock;
+         console.log(`the calculated difficulty = ${difficulty}`);
          difficulty = lastBlock.timestamp + MIN_RATE > timestamp ? difficulty + 1 : difficulty - 1;
          return difficulty;
 
    }
 
    static hash(timestamp, lastHash, data, noance, difficulty) {
-
+        console.log(`  in the hash method of block.js ${timestamp} | ${lastHash}  | ${data}  | ${noance} | ${difficulty} `);
         return ChainUtil.getHash(`${timestamp}${lastHash}${data}${noance}${difficulty}`);
 
    }
 
    static blockHash(block) {
        const {timestamp, lastHash, data, noance, difficulty} = block;
+       console.log(`${timestamp} | ${lastHash}  | ${data}  | ${noance} | ${difficulty} `);
        return this.hash(timestamp, lastHash, data, noance, difficulty) ;
    }
 

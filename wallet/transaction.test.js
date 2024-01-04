@@ -1,6 +1,6 @@
 const Transaction = require('./transaction');
 const Wallet = require('./index');
-
+const { REWARD_INPUT, MINING_REWARD } = require('../config');
 describe('Transaction with amount which is lesser than the available balance',()=>{
     let transaction, wallet, recipient, amount;
 
@@ -8,6 +8,8 @@ describe('Transaction with amount which is lesser than the available balance',()
         wallet = new Wallet();
         amount = 50;
         recipient = 'FX39JZ70';
+        console.log('In the transaction.test method');
+        console.log(Transaction);
         transaction = Transaction.newTransaction (wallet, recipient, amount); 
     });
 
@@ -68,6 +70,25 @@ describe('Transaction with amount which is lesser than the available balance',()
             expect(transaction.outputs.find(output=>output.address === nextWallet).amount).toEqual(nextAmount);
         });
 
-   })
+   });
+
+   describe('rewardTransaction()', () => {
+    let rewardTransaction, minerWallet;
+
+    beforeEach(() => {
+      minerWallet = new Wallet();
+      rewardTransaction = Transaction.rewardTransaction(minerWallet);
+    });
+
+    it('creates a transaction with the reward input', () => {
+      expect(rewardTransaction.input).toEqual(REWARD_INPUT);
+    });
+
+    it('creates one transaction for the miner with the `MINING_REWARD`', () => {
+      expect(rewardTransaction.outputMap[minerWallet.publicKey]).toEqual(MINING_REWARD);
+    });
+  });
+
     
 })
+
